@@ -43,24 +43,43 @@ c:\Users\Lakmal\Documents\Research\
 
 ---
 
-## 💻 Installation & Usage
+## 💻 Installation & Execution Guide (For Supervisors & Reviewers)
 
-### 1. Navigate to Project Folder & Install Dependencies
+### 🚀 1-Minute Quick Start (Windows / macOS / Linux)
+
+Open **Command Prompt**, **PowerShell**, or **Terminal** and copy & paste the following commands:
+
 ```bash
-# Navigate to the project directory
+# 1. Clone the repository from GitHub
+git clone https://github.com/lakmal6214/IDS-Forge-Research.git
+
+# 2. Enter the project folder (CRITICAL STEP)
 cd IDS-Forge-Research
 
-# Install dependencies
+# 3. Install project dependencies
 python -m pip install -r requirements.txt
-```
-*(On Windows, you can also use `py -m pip install -r requirements.txt`)*
 
-### 2. Launch IDS Forge Dashboard UI
-```bash
+# 4. Launch the Streamlit Web UI Dashboard
 python -m streamlit run app.py
 ```
-*(Or `streamlit run app.py` if Streamlit is in your system PATH)*
-Open your browser at `http://localhost:8501`.
+
+> 💡 **Windows Troubleshooting Tip:**  
+> If your system displays `'pip' is not recognized` or `'python' is not recognized`, use the Windows launcher **`py`**:
+> ```cmd
+> py -m pip install -r requirements.txt
+> py -m streamlit run app.py
+> ```
+
+Open your browser at **`http://localhost:8501`**.
+
+---
+
+### 💻 Option B: Run Terminal Experimental Pipeline (Stages 1–8)
+
+```bash
+cd IDS-Forge-Research
+python main.py
+```
 
 ---
 
