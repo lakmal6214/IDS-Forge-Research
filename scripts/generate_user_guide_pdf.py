@@ -165,7 +165,7 @@ def build_user_guide_pdf(output_path):
     story.append(Paragraph("git clone https://github.com/lakmal6214/IDS-Forge-Research.git<br/>cd IDS-Forge-Research", code_style))
 
     story.append(Paragraph("<b>Step 2: Install Required Dependencies</b>", body_style))
-    story.append(Paragraph("pip install -r requirements.txt", code_style))
+    story.append(Paragraph("python -m pip install -r requirements.txt<br/><i>(Or: py -m pip install -r requirements.txt)</i>", code_style))
 
     story.append(Paragraph("<b>Step 3: Launch Option A — Interactive Web Dashboard</b>", body_style))
     story.append(Paragraph("python -m streamlit run app.py", code_style))

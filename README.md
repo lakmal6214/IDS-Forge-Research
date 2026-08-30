@@ -47,8 +47,9 @@ c:\Users\Lakmal\Documents\Research\
 
 ### 1. Install Dependencies
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
+*(On Windows, you can also use `py -m pip install -r requirements.txt`)*
 
 ### 2. Launch IDS Forge Dashboard UI
 ```bash
