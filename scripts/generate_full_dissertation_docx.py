@@ -193,6 +193,7 @@ def generate_dissertation_docx(output_path):
         ["Student Registration ID:", "14519"],
         ["Module Code & Title:", "COM4901 - Final Year Individual Project"],
         ["Project Supervisor:", "Mr. Sahan Weerasinghe"],
+        ["GitHub Repository:", "https://github.com/lakmal6214/IDS-Forge-Research"],
         ["Academic Year / Date:", "2026 / 31 August 2026"]
     ]
     for row in info_data:
@@ -352,7 +353,7 @@ def generate_dissertation_docx(output_path):
     add_heading_2("1.5 Scope and Deliverables")
     add_p("The scope of this project encompasses the complete engineering lifecycle—including feature engineering, rule development, model training, pipeline integration, hardware benchmarking, web dashboard deployment, and academic documentation—of a hybrid intrusion detection framework.")
     add_p("Key Project Deliverables Include:")
-    add_bullet(" Modular Python 3.14 package containing 9 core backend scripts (`src/data_loader.py`, `src/feature_selection.py`, `src/signature_engine.py`, `src/ml_models.py`, `src/hybrid_ids.py`, `src/evaluator.py`, `src/visualizer.py`, `main.py`, `app.py`).", "1. Complete Software Codebase:")
+    add_bullet(" Open-source Python 3.14 package hosted at https://github.com/lakmal6214/IDS-Forge-Research containing 9 core backend scripts (`src/data_loader.py`, `src/feature_selection.py`, `src/signature_engine.py`, `src/ml_models.py`, `src/hybrid_ids.py`, `src/evaluator.py`, `src/visualizer.py`, `main.py`, `app.py`).", "1. Complete Software Codebase:")
     add_bullet(" Streamlit web application (`app.py`) featuring real-time packet inspection, rule evaluation, ML model benchmarks, zero-day threat simulation, and automated PDF report export.", "2. Interactive Web Dashboard:")
     add_bullet(" Standardized CSV metric logs (`output/*.csv`) and 8 high-resolution 300 DPI publication plots (`output/*.png`).", "3. Experimental Benchmark Artifacts:")
     add_bullet(" Formatted 9,000+ word thesis adhering strictly to KIU COM4901 formatting guidelines.", "4. Comprehensive Final Dissertation:")
@@ -503,7 +504,7 @@ def generate_dissertation_docx(output_path):
     add_heading_1("CHAPTER 4: IMPLEMENTATION")
 
     add_heading_2("4.1 Development Environment & Specifications")
-    add_p("The proposed Hybrid IDS software pipeline was constructed entirely in Python 3.14 within a isolated virtual environment (`.venv`). Development was conducted on an Intel Core processor system with 16 GB RAM running Windows 11 64-bit OS.")
+    add_p("The proposed Hybrid IDS software pipeline was constructed entirely in Python 3.14 within an isolated virtual environment (`.venv`). Development was conducted on an Intel Core processor system with 16 GB RAM running Windows 11 64-bit OS. The full source code, dataset loaders, rule definitions, and visualization routines are publicly hosted at the official project GitHub repository: https://github.com/lakmal6214/IDS-Forge-Research.")
 
     add_heading_2("4.2 Dataset Acquisition & Benchmark Preprocessing")
     add_p("The benchmark dataset adheres to the established BoT-IoT dataset schema (Koroniotis et al., 2019), representing realistic IoT network traffic containing DoS, DDoS, Reconnaissance, and Data Theft attacks. A dataset of 10,000 traffic records was generated and split into a 70% Training set (7,000 samples) and a 30% Testing set (3,000 samples). Table 4.1 details the 12 initial feature attributes:")
@@ -738,6 +739,7 @@ def generate_dissertation_docx(output_path):
     add_heading_1("APPENDICES")
 
     add_heading_2("Appendix A: Complete Source Code Structure")
+    add_p("GitHub Repository: https://github.com/lakmal6214/IDS-Forge-Research")
     add_p("c:\\Users\\Lakmal\\Documents\\Research\\", font_name="Courier")
     add_p("├── README.md                           # Main GitHub Documentation & Overview", font_name="Courier")
     add_p("├── requirements.txt                    # Dependencies Specification", font_name="Courier")
