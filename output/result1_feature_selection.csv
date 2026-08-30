@@ -1,0 +1,13 @@
+Feature,Pearson Correlation,Information Gain,RFE Rank,Selected?
+N_IN_Conn_P_DstIP,0.8265,0.6729,1,Yes
+N_IN_Conn_P_SrcIP,0.8066,0.6688,1,Yes
+max,0.7847,0.5835,1,Yes
+srate,0.6093,0.5514,1,Yes
+mean,0.7332,0.541,1,Yes
+stddev,0.7367,0.5358,1,Yes
+state_number,0.4077,0.4488,1,Yes
+dport,0.6126,0.3768,1,Yes
+sport,0.0132,0.0025,2,Yes
+drate,0.4154,0.3587,3,Yes
+proto,0.2198,0.0457,4,Yes
+min,0.3099,0.1982,5,Yes

@@ -1,0 +1,4 @@
+System,Avg CPU Load,Avg Memory (MB),Notes
+Signature Only,0.0,227.4453125,Pure rule matching
+ML Anomaly Only,20.0,227.46875,Full ML per packet
+IDS Forge Hybrid,13.0,227.48046875,ML bypassed for known

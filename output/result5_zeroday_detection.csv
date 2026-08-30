@@ -1,0 +1,5 @@
+Attack Type,Signature Only Recall,Hybrid IDS Recall
+DoS,100.00%,100.00%
+DDoS,100.00%,100.00%
+Reconnaissance,85.56%,100.00%
+Data Theft,100.00%,100.00%
