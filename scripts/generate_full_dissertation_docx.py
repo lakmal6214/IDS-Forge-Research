@@ -5,6 +5,7 @@ strictly adhering to KIU University COM4901 guidelines:
 - Times New Roman, 12pt body text
 - 1.5 Line Spacing
 - 1 inch margins on all sides
+- Native Word Tab Stops with Dot Leaders for Table of Contents, List of Figures, List of Tables
 - IEEE Referencing Format (25+ peer-reviewed citations)
 - Formatted Tables, Headers, Footers, and Dynamic Page Numbers
 """
@@ -14,7 +15,7 @@ import sys
 import docx
 from docx import Document
 from docx.shared import Inches, Pt, RGBColor
-from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_TAB_ALIGNMENT, WD_TAB_LEADER
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml import parse_xml
 from docx.oxml.ns import nsdecls
@@ -71,7 +72,7 @@ def generate_dissertation_docx(output_path):
     style_normal.paragraph_format.line_spacing = 1.5
     style_normal.paragraph_format.space_after = Pt(6)
 
-    def add_p(text="", bold=False, italic=False, space_after=6, align=WD_ALIGN_PARAGRAPH.LEFT, font_name='Times New Roman'):
+    def add_p(text="", bold=False, italic=False, space_after=6, align=WD_ALIGN_PARAGRAPH.JUSTIFY, font_name='Times New Roman'):
         p = doc.add_paragraph()
         p.alignment = align
         p.paragraph_format.line_spacing = 1.5
@@ -122,6 +123,7 @@ def generate_dissertation_docx(output_path):
 
     def add_bullet(text, bold_prefix=""):
         p = doc.add_paragraph(style='List Bullet')
+        p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         p.paragraph_format.line_spacing = 1.5
         p.paragraph_format.space_after = Pt(4)
         if bold_prefix:
@@ -132,6 +134,27 @@ def generate_dissertation_docx(output_path):
         run_t = p.add_run(text)
         run_t.font.name = 'Times New Roman'
         run_t.font.size = Pt(12)
+        return p
+
+    def add_toc_line(title_text, page_num_str, is_bold=False):
+        """Creates a clean, native Word Table of Contents line with right-aligned tab stop & dot leaders."""
+        p = doc.add_paragraph()
+        p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+        p.paragraph_format.line_spacing = 1.3
+        p.paragraph_format.space_after = Pt(4)
+        
+        # Add Right-Aligned Tab Stop at 6.5 inches (the right margin) with DOTS leader
+        p.paragraph_format.tab_stops.add_tab_stop(Inches(6.5), WD_TAB_ALIGNMENT.RIGHT, WD_TAB_LEADER.DOTS)
+        
+        run_title = p.add_run(title_text)
+        run_title.font.name = 'Times New Roman'
+        run_title.font.size = Pt(11)
+        run_title.bold = is_bold
+        
+        run_page = p.add_run(f"\t{page_num_str}")
+        run_page.font.name = 'Times New Roman'
+        run_page.font.size = Pt(11)
+        run_page.bold = is_bold
         return p
 
     def format_table(table, col_widths, headers, data):
@@ -214,11 +237,11 @@ def generate_dissertation_docx(output_path):
     add_p("I confirm that all literature sources, empirical dataset schemas, software code implementations, mathematical formulations, and external benchmark models referenced herein have been explicitly cited and acknowledged according to the IEEE referencing standard. This work has not been previously submitted, in whole or in part, for any other degree, diploma, or academic qualification at KIU University or any other higher education institution.")
     add_p("I understand the institutional policy on academic integrity and plagiarism, and I confirm that this document has passed plagiarism verification with a similarity index adhering strictly to university requirements.")
     
-    add_p("\nStudent Signature: ______________________                  Date: 31 August 2026")
-    add_p("R.M.L.S.B. Wijerathna (ID: 14519)")
+    add_p("\nStudent Signature: ______________________                  Date: 31 August 2026", align=WD_ALIGN_PARAGRAPH.LEFT)
+    add_p("R.M.L.S.B. Wijerathna (ID: 14519)", align=WD_ALIGN_PARAGRAPH.LEFT)
 
-    add_p("\nSupervisor Endorsement: ____________________              Date: 31 August 2026")
-    add_p("Mr. Sahan Weerasinghe (Project Supervisor)")
+    add_p("\nSupervisor Endorsement: ____________________              Date: 31 August 2026", align=WD_ALIGN_PARAGRAPH.LEFT)
+    add_p("Mr. Sahan Weerasinghe (Project Supervisor)", align=WD_ALIGN_PARAGRAPH.LEFT)
 
     doc.add_page_break()
 
@@ -235,44 +258,108 @@ def generate_dissertation_docx(output_path):
 
     doc.add_page_break()
 
-    # PRELIMINARY LISTS
+    # PRELIMINARY LISTS - NATIVE TAB STOPS WITH DOT LEADERS
     add_heading_1("TABLE OF CONTENTS")
-    add_p("Declaration of Originality .................................................................................................................... ii")
-    add_p("Acknowledgements ............................................................................................................................. iii")
-    add_p("Abstract ................................................................................................................................................ iv")
-    add_p("Table of Contents .................................................................................................................................... v")
-    add_p("List of Figures ................................................................................................................................... vi")
-    add_p("List of Tables ................................................................................................................................... vii")
-    add_p("List of Abbreviations ....................................................................................................................... viii")
-    add_p("Chapter 1: Introduction ........................................................................................................................ 1")
-    add_p("Chapter 2: Literature Review ............................................................................................................... 7")
-    add_p("Chapter 3: Methodology .................................................................................................................... 16")
-    add_p("Chapter 4: Implementation ................................................................................................................. 24")
-    add_p("Chapter 5: Results and Evaluation ...................................................................................................... 31")
-    add_p("Chapter 6: Discussion ........................................................................................................................ 38")
-    add_p("Chapter 7: Conclusion and Future Work .................................................................................            44")
-    add_p("References .......................................................................................................................................... 48")
-    add_p("Appendices ......................................................................................................................................... 52")
+    toc_data = [
+        ("Declaration of Originality", "ii", True),
+        ("Acknowledgements", "iii", True),
+        ("Abstract", "iv", True),
+        ("Table of Contents", "v", True),
+        ("List of Figures", "vi", True),
+        ("List of Tables", "vii", True),
+        ("List of Abbreviations", "viii", True),
+        ("Chapter 1: Introduction", "1", True),
+        ("    1.1 Project Background and Motivation", "1", False),
+        ("    1.2 Problem Statement", "3", False),
+        ("    1.3 Project Aim and Objectives", "4", False),
+        ("    1.4 Research Questions", "5", False),
+        ("    1.5 Scope and Deliverables", "5", False),
+        ("    1.6 Report Structure", "6", False),
+        ("Chapter 2: Literature Review", "7", True),
+        ("    2.1 IoT Security Landscape & Threat Vectors", "7", False),
+        ("    2.2 Evolution of Intrusion Detection Systems in IoT", "9", False),
+        ("    2.3 Signature-Based Detection Systems (S-IDS)", "10", False),
+        ("    2.4 Anomaly-Based Detection Systems (A-IDS)", "11", False),
+        ("    2.5 Machine Learning Classifiers in Cyber Security", "12", False),
+        ("    2.6 Hybrid IDS Frameworks & Comparative Architectures", "13", False),
+        ("    2.7 Feature Selection Methodologies", "14", False),
+        ("    2.8 Mathematical Foundations of Machine Learning Classifiers", "14", False),
+        ("    2.9 Research Gaps Identified", "15", False),
+        ("Chapter 3: Methodology", "16", True),
+        ("    3.1 Research Methodology & System Design", "16", False),
+        ("    3.2 System Architecture Overview", "17", False),
+        ("    3.3 Phase 1: Signature Matching Engine Design", "18", False),
+        ("    3.4 Phase 2: Machine Learning Anomaly Detector Design", "19", False),
+        ("    3.5 3-Stage Feature Selection Pipeline", "20", False),
+        ("    3.6 Evaluation Strategy & Key Performance Metrics", "21", False),
+        ("    3.7 Experimental Tools and Technology Stack", "23", False),
+        ("Chapter 4: Implementation", "24", True),
+        ("    4.1 Development Environment & Specifications", "24", False),
+        ("    4.2 Dataset Acquisition & Benchmark Preprocessing", "25", False),
+        ("    4.3 Data Preprocessing & Min-Max Normalization", "26", False),
+        ("    4.4 Feature Selection Pipeline Implementation", "27", False),
+        ("    4.5 Signature Rules Engine Implementation", "27", False),
+        ("    4.6 Machine Learning Model Training & Optimization", "28", False),
+        ("    4.7 Hybrid Coordination Engine Implementation", "29", False),
+        ("    4.8 Verification & Hardware Performance Tracking", "29", False),
+        ("    4.9 Software Package Modularity & Clean Architecture", "30", False),
+        ("Chapter 5: Results and Evaluation", "31", True),
+        ("    5.1 Stage 2 Feature Selection Outcomes", "31", False),
+        ("    5.2 Phase 2 Classifier Comparative Analysis", "32", False),
+        ("    5.3 Hybrid IDS Performance Evaluation", "33", False),
+        ("    5.4 Resource Consumption & Processing Overhead", "35", False),
+        ("    5.5 Zero-Day Attack Detection Simulation", "36", False),
+        ("Chapter 6: Discussion", "38", True),
+        ("    6.1 Critical Interpretation of Empirical Findings", "38", False),
+        ("    6.2 Trade-off Analysis: Speed vs. Detection Generalization", "39", False),
+        ("    6.3 Comparison with Benchmark Literature", "40", False),
+        ("    6.4 Limitations & Evasion Vulnerabilities", "41", False),
+        ("    6.5 Practical IoT Edge Deployment Considerations", "42", False),
+        ("Chapter 7: Conclusion and Future Work", "44", True),
+        ("    7.1 Summary of Project Achievements", "44", False),
+        ("    7.2 Fulfillment of Research Objectives", "44", False),
+        ("    7.3 Key Theoretical and Practical Contributions", "46", False),
+        ("    7.4 Future Research Directions", "46", False),
+        ("    7.5 Final Concluding Remarks", "47", False),
+        ("References", "48", True),
+        ("Appendices", "52", True)
+    ]
+    for title, page_str, bold_flag in toc_data:
+        add_toc_line(title, page_str, is_bold=bold_flag)
+
+    doc.add_page_break()
 
     add_heading_1("LIST OF FIGURES")
-    add_p("Figure 3.1: Two-Tier Sequential Hybrid Intrusion Detection System Architectural Dataflow ....... 18")
-    add_p("Figure 5.1: Random Forest Feature Importance Ranking across 8 Selected Features ................... 32")
-    add_p("Figure 5.2: Machine Learning Classifiers Benchmark Performance Comparison Bar Chart .......... 33")
-    add_p("Figure 5.3: Receiver Operating Characteristic (ROC) Curves for Candidate ML Classifiers ......... 34")
-    add_p("Figure 5.4: Per-Packet Latency vs. Classification Accuracy Trade-Off Across Configurations ....... 35")
-    add_p("Figure 5.5: System Resource Utilization (CPU Load % and Memory Footprint MB) ....................... 36")
-    add_p("Figure 5.6: Per-Packet Processing Latency Benchmark Comparison (ms/packet) ............................ 37")
-    add_p("Figure 5.7: 3-Stage Feature Selection Pipeline Information Gain Ranking Chart ........................... 37")
+    fig_data = [
+        ("Figure 3.1: Two-Tier Sequential Hybrid Intrusion Detection System Architectural Dataflow", "18"),
+        ("Figure 5.1: Random Forest Feature Importance Ranking across 8 Selected Features", "32"),
+        ("Figure 5.2: Machine Learning Classifiers Benchmark Performance Comparison Bar Chart", "33"),
+        ("Figure 5.3: Receiver Operating Characteristic (ROC) Curves for Candidate ML Classifiers", "34"),
+        ("Figure 5.4: Per-Packet Latency vs. Classification Accuracy Trade-Off Across Configurations", "35"),
+        ("Figure 5.5: System Resource Utilization (CPU Load % and Memory Footprint MB)", "36"),
+        ("Figure 5.6: Per-Packet Processing Latency Benchmark Comparison (ms/packet)", "37"),
+        ("Figure 5.7: 3-Stage Feature Selection Pipeline Information Gain Ranking Chart", "37")
+    ]
+    for fig_title, page_str in fig_data:
+        add_toc_line(fig_title, page_str, is_bold=False)
+
+    doc.add_page_break()
 
     add_heading_1("LIST OF TABLES")
-    add_p("Table 2.1: Architectural Comparison of Signature, Anomaly, and Hybrid IDS Frameworks ......... 12")
-    add_p("Table 3.1: Phase 1 Signature Engine Deterministic Rules Logic & Target Attack Mapping .......... 20")
-    add_p("Table 4.1: BoT-IoT Dataset Attributes, Definitions, and Data Type Specifications ......................... 26")
-    add_p("Table 5.1: 3-Stage Feature Selection Ranking and Selection Results across 12 Attributes .............. 31")
-    add_p("Table 5.2: Machine Learning Classifiers Benchmark Performance Comparison ............................ 33")
-    add_p("Table 5.3: Comparative Performance of Standalone Signature, ML, and Proposed Hybrid IDS ...... 34")
-    add_p("Table 5.4: Hardware Resource Consumption (CPU Load % & RAM Footprint MB) ........................ 36")
-    add_p("Table 5.5: Zero-Day Attack Simulation Detection Rate & Fallback Recall Breakdown .................. 37")
+    tbl_list_data = [
+        ("Table 2.1: Architectural Comparison of Signature, Anomaly, and Hybrid IDS Frameworks", "13"),
+        ("Table 3.1: Phase 1 Signature Engine Deterministic Rules Logic & Target Attack Mapping", "18"),
+        ("Table 4.1: BoT-IoT Dataset Attributes, Definitions, and Data Type Specifications", "25"),
+        ("Table 5.1: 3-Stage Feature Selection Ranking and Selection Results across 12 Attributes", "31"),
+        ("Table 5.2: Machine Learning Classifiers Benchmark Performance Comparison", "32"),
+        ("Table 5.3: Comparative Performance of Standalone Signature, ML, and Proposed Hybrid IDS", "33"),
+        ("Table 5.4: Hardware Resource Consumption (CPU Load % & RAM Footprint MB)", "35"),
+        ("Table 5.5: Zero-Day Attack Simulation Detection Rate & Fallback Recall Breakdown", "36")
+    ]
+    for tbl_title, page_str in tbl_list_data:
+        add_toc_line(tbl_title, page_str, is_bold=False)
+
+    doc.add_page_break()
 
     add_heading_1("LIST OF ABBREVIATIONS")
     abbrev_data = [
@@ -727,6 +814,7 @@ def generate_dissertation_docx(output_path):
     ]
     for r in refs:
         p_ref = doc.add_paragraph()
+        p_ref.alignment = WD_ALIGN_PARAGRAPH.LEFT
         p_ref.paragraph_format.space_after = Pt(4)
         run_r = p_ref.add_run(r)
         run_r.font.name = 'Times New Roman'
@@ -739,28 +827,28 @@ def generate_dissertation_docx(output_path):
     add_heading_1("APPENDICES")
 
     add_heading_2("Appendix A: Complete Source Code Structure")
-    add_p("GitHub Repository: https://github.com/lakmal6214/IDS-Forge-Research")
-    add_p("c:\\Users\\Lakmal\\Documents\\Research\\", font_name="Courier")
-    add_p("├── README.md                           # Main GitHub Documentation & Overview", font_name="Courier")
-    add_p("├── requirements.txt                    # Dependencies Specification", font_name="Courier")
-    add_p("├── .gitignore                          # Git Exclusion Rules", font_name="Courier")
-    add_p("├── app.py                              # Streamlit Web UI Dashboard", font_name="Courier")
-    add_p("├── main.py                             # CLI Pipeline Orchestrator", font_name="Courier")
-    add_p("├── src/                                # Core Engine Source Code Package", font_name="Courier")
-    add_p("│   ├── __init__.py                     # Package Initializer", font_name="Courier")
-    add_p("│   ├── data_loader.py                  # Preprocessing & Dataset Generator", font_name="Courier")
-    add_p("│   ├── feature_selection.py            # 3-Stage Feature Selection Pipeline", font_name="Courier")
-    add_p("│   ├── signature_engine.py             # Phase 1 Rule-Based Signature Engine", font_name="Courier")
-    add_p("│   ├── ml_models.py                    # Phase 2 ML Classifiers", font_name="Courier")
-    add_p("│   ├── hybrid_ids.py                   # Two-Tier Sequential Hybrid Engine", font_name="Courier")
-    add_p("│   ├── evaluator.py                    # Performance & Hardware Evaluator", font_name="Courier")
-    add_p("│   └── visualizer.py                   # Plotting & Diagram Generator", font_name="Courier")
-    add_p("├── docs/                               # Final Academic Deliverables", font_name="Courier")
-    add_p("│   ├── Dissertation_IDS_Forge_14519.docx", font_name="Courier")
-    add_p("│   ├── Viva_Presentation_IDS_Forge_14519.pptx", font_name="Courier")
-    add_p("│   ├── Final_Report_IDS_Forge_14519.pdf", font_name="Courier")
-    add_p("│   └── User_Guide_How_To_Run_IDS_Forge.pdf", font_name="Courier")
-    add_p("└── output/                             # Figures & CSV Benchmark Results", font_name="Courier")
+    add_p("GitHub Repository: https://github.com/lakmal6214/IDS-Forge-Research", align=WD_ALIGN_PARAGRAPH.LEFT)
+    add_p("c:\\Users\\Lakmal\\Documents\\Research\\", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("├── README.md                           # Main GitHub Documentation & Overview", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("├── requirements.txt                    # Dependencies Specification", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("├── .gitignore                          # Git Exclusion Rules", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("├── app.py                              # Streamlit Web UI Dashboard", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("├── main.py                             # CLI Pipeline Orchestrator", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("├── src/                                # Core Engine Source Code Package", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("│   ├── __init__.py                     # Package Initializer", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("│   ├── data_loader.py                  # Preprocessing & Dataset Generator", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("│   ├── feature_selection.py            # 3-Stage Feature Selection Pipeline", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("│   ├── signature_engine.py             # Phase 1 Rule-Based Signature Engine", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("│   ├── ml_models.py                    # Phase 2 ML Classifiers", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("│   ├── hybrid_ids.py                   # Two-Tier Sequential Hybrid Engine", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("│   ├── evaluator.py                    # Performance & Hardware Evaluator", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("│   └── visualizer.py                   # Plotting & Diagram Generator", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("├── docs/                               # Final Academic Deliverables", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("│   ├── Dissertation_IDS_Forge_14519.docx", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("│   ├── Viva_Presentation_IDS_Forge_14519.pptx", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("│   ├── Final_Report_IDS_Forge_14519.pdf", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("│   └── User_Guide_How_To_Run_IDS_Forge.pdf", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
+    add_p("└── output/                             # Figures & CSV Benchmark Results", align=WD_ALIGN_PARAGRAPH.LEFT, font_name="Courier")
 
     add_heading_2("Appendix B: Dataset Attribute Dictionary")
     add_bullet(" Total inbound connections per source IP address window.", "`N_IN_Conn_P_SrcIP`:")
