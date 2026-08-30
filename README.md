@@ -52,8 +52,9 @@ pip install -r requirements.txt
 
 ### 2. Launch IDS Forge Dashboard UI
 ```bash
-streamlit run app.py
+python -m streamlit run app.py
 ```
+*(Or `streamlit run app.py` if Streamlit is in your system PATH)*
 Open your browser at `http://localhost:8501`.
 
 ---
