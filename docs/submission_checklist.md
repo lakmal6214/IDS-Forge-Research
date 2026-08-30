@@ -7,15 +7,16 @@
 
 ## CHECKLIST VERIFICATION
 
-- [x] **Complete Source Code (9 Python Files):**
-  - `data_loader.py`
-  - `feature_selection.py`
-  - `signature_engine.py`
-  - `ml_models.py`
-  - `hybrid_ids.py`
-  - `evaluator.py`
-  - `visualizer.py`
+- [x] **Complete Source Code & Core Package:**
+  - `src/data_loader.py`
+  - `src/feature_selection.py`
+  - `src/signature_engine.py`
+  - `src/ml_models.py`
+  - `src/hybrid_ids.py`
+  - `src/evaluator.py`
+  - `src/visualizer.py`
   - `main.py`
+  - `app.py`
   - `requirements.txt`
 - [x] **Empirical Results Generated:**
   - `output/result1_feature_selection.csv`
@@ -32,17 +33,14 @@
   - `output/fig6_packet_latency.png`
   - `output/fig7_system_architecture.png`
   - `output/fig8_feature_selection_pipeline.png`
-- [x] **Complete Dissertation Document:**
-  - Word count: 8,000 - 10,000 words
-  - Chapters 1 to 7 fully detailed
-  - 25+ IEEE formatted academic references
-- [x] **Viva Presentation Slide Deck:**
-  - 35 slides with comprehensive speaker notes
-- [x] **Supporting Documentation:**
-  - `README.md`
-  - `project_logbook.md`
-  - `ethical_considerations.md`
-  - `technical_documentation.md`
+- [x] **Complete Academic Deliverables (docs/):**
+  - `docs/Dissertation_IDS_Forge_14519.docx`
+  - `docs/Viva_Presentation_IDS_Forge_14519.pptx`
+  - `docs/Final_Report_IDS_Forge_14519.pdf`
+  - `docs/User_Guide_How_To_Run_IDS_Forge.pdf`
+  - `docs/Ethical_Considerations.md`
+  - `docs/Project_Logbook.md`
+  - `docs/Technical_Documentation.md`
   - **GitHub Repository:** [https://github.com/lakmal6214/IDS-Forge-Research](https://github.com/lakmal6214/IDS-Forge-Research)
 - [x] **Plagiarism Verification:** Turnitin similarity < 20%
 - [x] **Supervisor Endorsement:** Approved by Mr. Sahan Weerasinghe
