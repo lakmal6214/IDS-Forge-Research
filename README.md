@@ -43,32 +43,31 @@ c:\Users\Lakmal\Documents\Research\
 
 ---
 
-## 💻 Installation & Execution Guide (For Supervisors & Reviewers)
+## ⚡ How to Run IDS Forge Easily on ANY Device
 
-### 📁 Option 1: If You Downloaded ZIP File from GitHub (Recommended for Windows)
-
-Open **Command Prompt** and copy-paste these 3 lines:
-
-```cmd
-cd %USERPROFILE%\Downloads\IDS-Forge-Research-main
-python -m pip install -r requirements.txt
-python -m streamlit run app.py
-```
-
-> ⚠️ **Important Windows CMD Note:**
-> Make sure **not** to add a backslash `\` before `cd` (type `cd`, not `\cd`).
-> You must run the `cd` line first so Command Prompt enters the `IDS-Forge-Research-main` folder before running `pip install`.
-
-> 💡 **Tip:** If `'python' is not recognized`, replace `python` with `py`:
-> ```cmd
-> cd %USERPROFILE%\Downloads\IDS-Forge-Research-main
-> py -m pip install -r requirements.txt
-> py -m streamlit run app.py
-> ```
+### ⚡ Method 1: Double-Click 1-Click Launcher (Easiest for Windows)
+1. Download & Extract **`IDS-Forge-Research-main.zip`**.
+2. Open the extracted folder.
+3. Double-click **`run_ids_forge.bat`**.
+*(The script automatically detects Python, installs missing packages, and opens the Web Application!)*
 
 ---
 
-### 🌐 Option 2: If Using Git Clone
+### 💻 Method 2: Single Copy-Paste Line (Windows Command Prompt)
+Extract `IDS-Forge-Research-main.zip`, open **Command Prompt**, and copy-paste this single line:
+
+```cmd
+cd Downloads\IDS-Forge-Research-main && python -m pip install -r requirements.txt && python -m streamlit run app.py
+```
+
+*(If `python` is replaced by `py` on your machine)*:
+```cmd
+cd Downloads\IDS-Forge-Research-main && py -m pip install -r requirements.txt && py -m streamlit run app.py
+```
+
+---
+
+### 🌐 Method 3: Git Clone (For Any OS: Windows / Mac / Linux)
 
 ```bash
 git clone https://github.com/lakmal6214/IDS-Forge-Research.git
