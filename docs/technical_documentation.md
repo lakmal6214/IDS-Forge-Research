@@ -23,7 +23,7 @@
 ### Prerequisites
 - Raspberry Pi OS or Ubuntu Server 22.04 LTS
 - Python 3.10+
-- `pip install -r requirements.txt`
+- `python -m pip install -r requirements.txt` (or `py -m pip install -r requirements.txt` on Windows)
 
 ### Execution
 ```bash
