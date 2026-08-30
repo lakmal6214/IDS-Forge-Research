@@ -43,6 +43,6 @@
   - `project_logbook.md`
   - `ethical_considerations.md`
   - `technical_documentation.md`
-  - **GitHub Repository:** [https://github.com/Lakmal/IDS-Forge-Research](https://github.com/Lakmal/IDS-Forge-Research)
+  - **GitHub Repository:** [https://github.com/lakmal6214/IDS-Forge-Research](https://github.com/lakmal6214/IDS-Forge-Research)
 - [x] **Plagiarism Verification:** Turnitin similarity < 20%
 - [x] **Supervisor Endorsement:** Approved by Mr. Sahan Weerasinghe
