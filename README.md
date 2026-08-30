@@ -55,6 +55,10 @@ python -m pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
+> ⚠️ **Important Windows CMD Note:**
+> Make sure **not** to add a backslash `\` before `cd` (type `cd`, not `\cd`).
+> You must run the `cd` line first so Command Prompt enters the `IDS-Forge-Research-main` folder before running `pip install`.
+
 > 💡 **Tip:** If `'python' is not recognized`, replace `python` with `py`:
 > ```cmd
 > cd %USERPROFILE%\Downloads\IDS-Forge-Research-main
