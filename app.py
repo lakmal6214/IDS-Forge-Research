@@ -19,12 +19,12 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 
 # Import existing backend modules
-from data_loader import load_and_preprocess_data, generate_sample_bot_iot_data
-from feature_selection import run_feature_selection
-from signature_engine import SignatureEngine
-from ml_models import train_and_evaluate_models
-from hybrid_ids import HybridIDS
-from evaluator import evaluate_system_performance
+from src.data_loader import load_and_preprocess_data, generate_sample_bot_iot_data
+from src.feature_selection import run_feature_selection
+from src.signature_engine import SignatureEngine
+from src.ml_models import train_and_evaluate_models
+from src.hybrid_ids import HybridIDS
+from src.evaluator import evaluate_system_performance
 
 # ---------------------------------------------------------
 # Streamlit Page Config

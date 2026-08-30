@@ -186,9 +186,12 @@ def plot_feature_selection_pipeline(df_rank, output_dir):
     plt.title('Stage 2 & 3 Feature Ranking (Selected 8 Features in Cyan)')
     plt.tight_layout()
     path = os.path.join(output_dir, 'fig8_feature_selection_pipeline.png')
-    plt.savefig(path, dpi=300)
+    try:
+        plt.savefig(path, dpi=300)
+        print(f"[+] Saved figure to {path}")
+    except PermissionError:
+        print(f"[!] Warning: Could not overwrite {path} (file is in use by another application).")
     plt.close()
-    print(f"[+] Saved figure to {path}")
 
 def generate_all_visualizations(df_rank, ml_metrics_df, trained_models, hybrid_df, resource_df, X_test, y_test, output_dir="output"):
     os.makedirs(output_dir, exist_ok=True)

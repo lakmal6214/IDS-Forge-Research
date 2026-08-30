@@ -52,6 +52,6 @@ def run_feature_selection(X_train, y_train, top_k=8):
     return selected_features, df_rank
 
 if __name__ == '__main__':
-    from data_loader import load_and_preprocess_data
+    from src.data_loader import load_and_preprocess_data
     X_train, X_test, y_train, y_test, _, _, _ = load_and_preprocess_data()
     selected_features, ranking_df = run_feature_selection(X_train, y_train)

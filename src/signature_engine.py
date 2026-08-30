@@ -91,7 +91,7 @@ class SignatureEngine:
         return np.array(matched_mask), np.array(predictions), elapsed_ms
 
 if __name__ == '__main__':
-    from data_loader import load_and_preprocess_data
+    from src.data_loader import load_and_preprocess_data
     _, X_test, _, y_test, _, _, _ = load_and_preprocess_data()
     engine = SignatureEngine()
     mask, preds, t_ms = engine.predict(X_test)

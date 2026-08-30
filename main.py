@@ -16,13 +16,13 @@ import numpy as np
 # Suppress all library warnings for clean terminal view
 warnings.filterwarnings('ignore')
 
-from data_loader import load_and_preprocess_data
-from feature_selection import run_feature_selection
-from signature_engine import SignatureEngine
-from ml_models import train_and_evaluate_models
-from hybrid_ids import HybridIDS
-from evaluator import evaluate_system_performance, format_metrics_table
-from visualizer import generate_all_visualizations
+from src.data_loader import load_and_preprocess_data
+from src.feature_selection import run_feature_selection
+from src.signature_engine import SignatureEngine
+from src.ml_models import train_and_evaluate_models
+from src.hybrid_ids import HybridIDS
+from src.evaluator import evaluate_system_performance, format_metrics_table
+from src.visualizer import generate_all_visualizations
 
 # ANSI Terminal Color Constants
 CYAN = '\033[1;36m'

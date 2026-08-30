@@ -62,8 +62,8 @@ def train_and_evaluate_models(X_train, y_train, X_test, y_test):
     return trained_models, results_df
 
 if __name__ == '__main__':
-    from data_loader import load_and_preprocess_data
-    from feature_selection import run_feature_selection
+    from src.data_loader import load_and_preprocess_data
+    from src.feature_selection import run_feature_selection
 
     X_train, X_test, y_train, y_test, _, _, _ = load_and_preprocess_data()
     selected_features, _ = run_feature_selection(X_train, y_train)
