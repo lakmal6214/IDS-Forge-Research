@@ -2,6 +2,7 @@
 
 **System:** Machine Learning-Based Hybrid Intrusion Detection System (HIDS)  
 **Author:** R.M.L.S.B. Wijerathna (ID: 14519)  
+**GitHub Repository:** [https://github.com/Lakmal/IDS-Forge-Research](https://github.com/Lakmal/IDS-Forge-Research)  
 
 ---
 

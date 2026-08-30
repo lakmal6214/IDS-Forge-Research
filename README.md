@@ -5,6 +5,7 @@
 **Supervisor:** Mr. Sahan Weerasinghe  
 **Module:** COM4901 - Final Year Individual Project  
 **Institution:** KIU University, Sri Lanka  
+**GitHub Repository:** [https://github.com/Lakmal/IDS-Forge-Research](https://github.com/Lakmal/IDS-Forge-Research)  
 
 ---
 
