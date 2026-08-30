@@ -45,8 +45,12 @@ c:\Users\Lakmal\Documents\Research\
 
 ## 💻 Installation & Usage
 
-### 1. Install Dependencies
+### 1. Navigate to Project Folder & Install Dependencies
 ```bash
+# Navigate to the project directory
+cd IDS-Forge-Research
+
+# Install dependencies
 python -m pip install -r requirements.txt
 ```
 *(On Windows, you can also use `py -m pip install -r requirements.txt`)*
